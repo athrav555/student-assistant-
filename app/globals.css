@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. Named after what they are on the "desk", not generic
+ * "primary/secondary" — makes it obvious at a glance what each is for.
+ */
+@theme inline {
+  --font-display: var(--font-lora);
+  --font-sans: var(--font-plex-sans);
+
+  --color-paper: #f3eedf; /* page background — warm parchment */
+  --color-surface: #fbf8ef; /* cards / panels sitting on the paper */
+  --color-ink: #232017; /* primary text — warm near-black */
+  --color-ink-soft: #55503f; /* secondary text */
+  --color-forest: #1f3d2b; /* primary brand / buttons */
+  --color-forest-dark: #16301f; /* button hover */
+  --color-brass: #b8892b; /* accent — active states, correct answers */
+  --color-brass-soft: #e7d3a3; /* light accent fill */
+  --color-brick: #a6432e; /* errors / incorrect answers */
+  --color-line: #d9d2bc; /* hairline rules and borders */
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+/* Subtle horizontal ruling, like the printed lines on an index card. */
+.rule-line {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 27px,
+    var(--color-line) 27px,
+    var(--color-line) 28px
+  );
+}
+
+/* 3D flip container for flashcards. */
+.flip-scene {
+  perspective: 1600px;
+}
+.flip-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+.flip-card.is-flipped {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-face-back {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-card {
+    transition: none;
+  }
+}
+
+/* Folder-tab shape for the Notes / Flashcards / Quiz switcher. */
+.folder-tab {
+  clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
+}
